@@ -75,17 +75,17 @@ public class DoubleLoop {
 //        int y3 = 10;
 //        int star_len = 0;
 //
-//        for (int i2 = 0; i2 < y3; i2++ ) {
+//        for (int i2 = 0; i2 < y3; i2++ ) { 반복될 줄 수
 //            int increase = 0;
 //            int decrease = 0;
 //
 //            // y 가 짝수 일 경우
-//            if ( y3 % 2 == 0 ) {
-//                if ( y3 / 2 > i2 ) {
-//                    increase = 1;
+//            if ( y3 % 2 == 0 ) { 짝수인지 아닌지 판별
+//                if ( y3 / 2 > i2 ) { 참이다 y를 2로 나눈 값이 i보다 크다면
+//                    increase = 1; increase가 1이 됨
 //                }
-//                else if ( y3 / 2 < i2 ) {
-//                    decrease = 1;
+//                else if ( y3 / 2 < i2 ) { 참이다 y를 2로 나눈 값이 i보다 작다면
+//                    decrease = 1; decrease가 1이 됨
 //                }
 //            }
 //            // count 가 홀수 일 star_len
