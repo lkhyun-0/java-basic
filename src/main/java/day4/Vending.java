@@ -1,7 +1,11 @@
 package day4;
 
 public class Vending {
-    //public int inputmoney(int money) {
+   int remainder = 0;
+    public int inputmoney(int money) {
+      return money;
+    }
+
 
 
     }
