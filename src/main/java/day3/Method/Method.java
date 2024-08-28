@@ -15,6 +15,8 @@ public class Method {
 
         p1.introduce();
         p2.introduce();
+        p1.walk();
+        p2.walk();
 
 
 

@@ -9,8 +9,8 @@ public class Person {
     // 메서드 모양 : 접근제어자 리턴타입 메서드명(매개변수) {내용}
     // 모든 동작은 일단 쉽게 출력으로 대체하자.
 
-    public void walk() {
-        System.out.println("사람이 걷습니다.");
+    public void walk(){
+        System.out.println(name +"이 걷습니다.");
     }
     // 매개변수
     public void introduce(String name2, int age2) {

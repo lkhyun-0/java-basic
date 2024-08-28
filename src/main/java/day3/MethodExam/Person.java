@@ -38,7 +38,6 @@ public class Person {
     }
 
     public void greeting2(int lang, int c) {
-
         if (lang == 1) {
             for (int i = 0; i < c; i++) {
                 System.out.println("안녕하세요");
@@ -51,8 +50,6 @@ public class Person {
                 for (int i = 0; i < c; i++) {
                     System.out.println("봉쥬르");
                 }
-
-
             }
         }
     }
