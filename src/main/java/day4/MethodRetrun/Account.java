@@ -1,4 +1,4 @@
-package day4.MrthodRetrun;
+package day4.MethodRetrun;
 
 public class Account {
     int remainder = 0; // 잔액변수 선언

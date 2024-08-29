@@ -1,4 +1,4 @@
-package day4.MrthodRetrun;
+package day4.MethodRetrun;
 
 
 // 메서드는 값을 표현할 수도 있고 아닐 수도 있음
