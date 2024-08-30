@@ -1,11 +1,12 @@
 package day4;
 // 자판기 클래스 + 메서드
 // 이걸 ArrayList로 바꿔야함
+
 public class VendingMachine {
 
-//    String names;
-//    int prices;
-//    int count; // 데이터 입력 완료
+    String names;
+    int prices;
+    int count; // 데이터 입력 완료
 //
 //    int remainder = 0;
 //

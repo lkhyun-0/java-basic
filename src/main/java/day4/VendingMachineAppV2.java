@@ -2,8 +2,19 @@ package day4;
 import day5.prectice.Person;
 import java.util.ArrayList;
 import java.util.Scanner;
-//public class VendingMachineAppV2 {
-//    public static void main(String[] args) {
+public class VendingMachineAppV2 {
+    public static void main(String[] args) {
+
+        ArrayList<VendingMachine> Vending = new ArrayList<>();
+
+
+
+
+
+    }
+    }
+
+
 //
 //            VendingMachine bv1 = new VendingMachine();
 //            bv1.names = "콜라";
