@@ -10,7 +10,6 @@ public class Casting {
 
         System.out.println((double) num1 / num2); // 출력 : 2.5 // 둘다 더블로 바꿔도 되고 하나만 해줘도 자바가 알아서 형변환을 해준디.
 
-
         // 자바의 대전제
         // 자료형 (타입)이 같은 것만 변수에 저장을 해준다
 
