@@ -131,6 +131,26 @@ public class Kiosk {
 
             }
             if (menu == 4) {
+                System.out.println("어떤 메뉴를 취소하겠습니까?");
+                System.out.println("1. 버거");
+                System.out.println("2. 사이드");
+                System.out.println("3. 음료수");
+                System.out.print("선택 : ");
+                int cancl = Integer.parseInt(sc.nextLine());
+                if (cancl == 1){
+                    System.out.print("품목을 선택해주세요 : ");
+
+
+                    int cancelSelec = Integer.parseInt(sc.nextLine());
+
+                }
+
+
+
+
+
+
+
 
             }
             if (menu == 5) {
@@ -143,6 +163,10 @@ public class Kiosk {
     }
 
 }
+
+
+//4, 5 번 구현하기
+
 
 // 햄버거 키오스크 v1
 // 1. 햄버거 선택
