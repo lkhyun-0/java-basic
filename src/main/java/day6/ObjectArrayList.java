@@ -8,7 +8,7 @@ public class ObjectArrayList {  // ArrayList를 1개만 사용하는 법을 알�
         // 1. 일단 데이터를 입력
         String name1 = "홍길동";
         int age1 = 20;
-        // 각각의 배열에 추가하기 푸시를 위한 덧글
+        // 각각의 배열에 추가하기
         ArrayList<String> names = new ArrayList<>(); // names라는 비어있는 배열 생성
         names.add(name1); // 여기에 name1정보 추가
 

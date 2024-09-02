@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-HEAD
   <component name="GradleMigrationSettings" migrationVersion="1" />
-
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -16,5 +15,4 @@ HEAD
       </GradleProjectSettings>
     </option>
   </component>
- 12e8462 (Describe your changes)
 </project>
