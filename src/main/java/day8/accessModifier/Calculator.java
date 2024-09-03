@@ -4,7 +4,7 @@ public class Calculator {
     int num1 = 10;
     private int num2 = 2;
 
-    // setter
+    // setter 정하자
     // 명명규칙 set변수명() -> 카멜표기법 반드시 지켜줘야함
     // setNum1()
 
@@ -18,9 +18,9 @@ public class Calculator {
     // num의 값을 설정할 수 있는 메서드를 설정하는 법
     // 이 메서드는 public으로 열어둠
     // Calculator가 가진 num의 세팅 값을 변경할 수 있음
+
     public void setNum1(int num1) {
         this.num1 = num1;
-
     }
 
     public void setNum2(int num2) {
@@ -36,6 +36,6 @@ public class Calculator {
     }
 
 }
-// getter
+// getter 가져오자
 // 명명규칙 get변수명() -> 카멜표기법 반드시 지켜줘야함
 // getNum1()
