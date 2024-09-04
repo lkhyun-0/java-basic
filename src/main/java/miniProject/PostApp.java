@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun 과 세트임
-
-    public PostApp() {
+public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 중요
+    // 모든 클래스는 생성자를 가질 수 있어용~ 같은이름으로
+    public PostApp() { // 데이터 넣어 놓고 시작하고 싶을 때 생성자로 ~ 초기화? 한다고 함
         Post p1 = new Post(1, "안녕하세요 반갑습니다. java", "내용없음", getCurrentDateTime(), 0, "내용없음");
         Post p2 = new Post(2, "java공부중이에요.", "내용없음", getCurrentDateTime(), 0, "내용없음");
         Post p3 = new Post(3, "정처기 따야하나요?", "내용없음", getCurrentDateTime(), 0, "내용없음");
@@ -19,11 +19,9 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
 
     static ArrayList<Post> posts = new ArrayList<>();
 
-
-    public void run() {
+    public void run() { // 실행 메소드
         Scanner sc = new Scanner(System.in);
         int lastestId = 1; // 가장 최신의 id값. id값의 고유성을 유지하기 위해 1씩 증가시킬 계획임
-
 
         while (true) {
             System.out.print("명령어 : ");
@@ -40,10 +38,11 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String body = sc.nextLine(); // 내용을 입력 받아
 
-                Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0, "내용없음"); // 생성자 넘버+ 제목 + 내용 모두 저장 처음 저장했다면
-                //(1, 입력한제목, 입력한내용, 시간) 이겠지?
+                Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0, "내용없음");
+                // post라는 클래스에 1번 입력한 제목, 입력한 내용, 현재 시각, 0,"내용없음" 을 저장함
 
                 posts.add(post); // ArrayList에 제목과 내용 저장~
+                // posts는 ArrayList임
 
                 System.out.println("게시물이 등록되었습니다.");
                 lastestId++; //1씩 증가시키기 (1부터 증가시킨다는 것은 고유값을 유지하는데 편리하다)
@@ -52,17 +51,17 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
 
             } else if (commend.equals("list")) {  // 조회는 그냥 꺼내와서 출력 해주기 객체를 잘 짜고 연결해주기 !!
 
-                printPostList(posts);
+                printPostList(posts); // 게시물 리스트 출력해주는 메서드 (길이는 ArrayList만큼 = 전체 출력!!)
 
             } else if (commend.equals("update")) {
                 System.out.print("수정할 게시물의 번호를 입력하세요 : ");
-                int targetId = Integer.parseInt(sc.nextLine()); //
+                int targetId = Integer.parseInt(sc.nextLine()); // 수정하고 싶은 번호 골라서 입력
 
-                Post post = findPostById(targetId);
+                Post post = findPostById(targetId); // 게시물 중에서 입력 받은 값이랑 같은 것이 있는지 찾아!
 
-                if (post == null) {
-                    System.out.println("없는 게시물 입니다.");
-                    continue;
+                if (post == null) { // 만약 다 찾아 봤는데 없어?
+                    System.out.println("없는 게시물 입니다."); // 없다고 알려주고
+                    continue; // 다음회차로 넘겨줘
                 }
 
                 System.out.print("수정할 제목 : ");
@@ -71,35 +70,35 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
                 String newDetail = sc.nextLine();
 
                 post.setTitle(newTitle); // post 에 새 제목 저장
-                post.setBody(newDetail); // post에 새 내용 저장
+                post.setBody(newDetail); // post 에 새 내용 저장
 
                 System.out.println("수정이 완료되었습니다");
 
             } else if (commend.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
-                int targetId = Integer.parseInt(sc.nextLine());
+                int targetId = Integer.parseInt(sc.nextLine()); // 삭제하고 싶은 번호 입력받기
 
-                Post post = findPostById(targetId);
+                Post post = findPostById(targetId);// 입력값이랑 게시물번호랑 같은지 싹 찾아 > 메서드임 아래에서 한번 더 보기
 
-                if (post == null) {
-                    System.out.println("없는 게시물 번호 입니다.");
-                    continue;
+                if (post == null) { // 만약 다 찾아 봤는데 없어?
+                    System.out.println("없는 게시물 번호 입니다."); // 없다고 알려주고
+                    continue; // 다음회차로 넘겨
                 }
-                posts.remove(post);
-                System.out.println("삭제가 완료되었습니다.");
+                posts.remove(post); // ArrayList 는 삭제 기능을 지원하기 때문에 ~ 이렇게 적어주고
+                System.out.println("삭제가 완료되었습니다."); // 출력
 
             } else if (commend.equals("detail")) {
 
                 System.out.println("상세보기 할 게시물 번호를 입력해주세요 : ");
                 int targetId = Integer.parseInt(sc.nextLine());
 
-                Post post = findPostById(targetId);
+                Post post = findPostById(targetId); // 또 찾아 게시물 중에서
 
-                if (post == null) {
-                    System.out.println("존재하지 않는 게시물 번호 입니다.");
-                    continue;
+                if (post == null) { // 다 찾아 봤는데 없어?
+                    System.out.println("존재하지 않는 게시물 번호 입니다."); // 없다고 알려주고
+                    continue; // 다음회차로 넘겨줘
                 }
-                post.increaseHit();
+                post.increaseHit(); // 조회수 1올려줘
 
                 System.out.printf("번호 : %d\n", post.getId());
                 System.out.printf("제목 : %s\n", post.getTitle());
@@ -133,6 +132,7 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
 //                        System.out.println("===========================");
 //                        System.out.println("댓글내용 : " + post.getComment());
 //                        System.out.printf("작성일 : %s\n", post.getCreateDate()); > 반복되는 부분 해결하자 메서드로
+                        // 위에 출력 부분도 반복됨 메서드 사용해서 해결하기
 
 //                        post.getComment();
 
@@ -185,20 +185,16 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
                 info.setMemberNN(inputNN);
                 System.out.println("                              ");
                 System.out.println("==== 회원가입이 완료되었습니다 ====");
-
 //                System.out.println(info.getMemberID());
 //                System.out.println(info.getMemberPW());
-//                System.out.println(info.getMemberNN());  저장확인
-
-
+//                System.out.println(info.getMemberNN());  저장확인 완료
             }
-
-
         }
     }
 
-    public static Post findPostById(int id) { // 찾기만 해주면 됨  수정은 넘겨주고 실행
+    // 이제 기능 14 로그인 할 차례
 
+    public static Post findPostById(int id) { // 찾기만 해주면 됨  수정은 넘겨주고 실행
         // 만약 내가 찾고자 하는 게시물이 없다면?
         for (Post post : posts) {
             if (post.getId() == id) {
@@ -212,7 +208,6 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
-
         return formattedDateTime;
     }
 
@@ -225,10 +220,8 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
             System.out.printf("작성일 : %s\n", post.getCreateDate());
             System.out.printf("조회수 : %d\n", post.getHit());
             System.out.println("=================");
-
         }
     }
-
 }
 
 

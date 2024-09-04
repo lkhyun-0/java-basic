@@ -1,6 +1,6 @@
 package miniProject;
 
-public class MemberInformation {
+public class MemberInformation { // 로그인 정보 저장용
     private  String memberID;
     private  String memberPW;
     private  String memberNN;

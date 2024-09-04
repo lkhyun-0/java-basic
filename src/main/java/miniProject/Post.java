@@ -3,16 +3,13 @@ package miniProject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Post { // 얘는 PostBoard랑 세트임
+public class Post { // 기본 게시물 정보용
     private int id;
     private String title;
     private String body;
     private String createDate;
     private int hit;
-    private  String comment;
-
-
-
+    private String comment;
 
     public String getComment() {
         return comment;
@@ -26,7 +23,7 @@ public class Post { // 얘는 PostBoard랑 세트임
         this.title = title;
         this.body = body;
         this.id = id;
-        this.createDate = createDate ;
+        this.createDate = createDate;
         this.hit = hit;
     }
 
@@ -45,6 +42,7 @@ public class Post { // 얘는 PostBoard랑 세트임
     public void setBody(String body) {
         this.body = body;
     }
+
     public int getId() {
         return id;
     }
@@ -52,6 +50,7 @@ public class Post { // 얘는 PostBoard랑 세트임
     public void setId(int id) {
         this.id = id;
     }
+
     public String getCreateDate() {
         return createDate;
     }
@@ -63,6 +62,7 @@ public class Post { // 얘는 PostBoard랑 세트임
     public void increaseHit() { // 조회수가 1씩 증가하게 해주는 메서드
         this.hit++;
     }
+
     public int getHit() {
         return hit;
     }
