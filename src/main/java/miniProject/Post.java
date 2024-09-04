@@ -9,8 +9,17 @@ public class Post { // 얘는 PostBoard랑 세트임
     private String body;
     private String createDate;
     private int hit;
+    private  String comment;
 
-    public Post(int id, String title, String body, String createDate, int hit) {
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Post(int id, String title, String body, String createDate, int hit, String comment) {
         this.title = title;
         this.body = body;
         this.id = id;

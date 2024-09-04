@@ -11,9 +11,9 @@ public class PostBoard { // 여기서 편하게 만들고 App에 적용
 
     // 값의 초기화는 생성자에서 해주는게 좋음 다양한 로직에서 수행이 가능함
     public PostBoard(){
-        Post p1 = new Post(1, "안녕하세요 반갑습니다.","내용없음", getCurrentDateTime(),0);
-        Post p2 = new Post(2, "자바공부중이에요.","내용없음", getCurrentDateTime(),0);
-        Post p3 = new Post(3, "정처기 따야하나요?","내용없음", getCurrentDateTime(),0);
+        Post p1 = new Post(1, "안녕하세요 반갑습니다.","내용없음", getCurrentDateTime(),0,"내용없음");
+        Post p2 = new Post(2, "자바공부중이에요.","내용없음", getCurrentDateTime(),0,"내용없음");
+        Post p3 = new Post(3, "정처기 따야하나요?","내용없음", getCurrentDateTime(),0,"내용없음");
 
         posts.add(p1);
         posts.add(p2);
@@ -41,7 +41,7 @@ public class PostBoard { // 여기서 편하게 만들고 App에 적용
                 String body = sc.nextLine(); // 내용을 입력 받아
 
 
-                Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0 ); // 생성자 넘버+ 제목 + 내용 모두 저장 처음 저장했다면 (1, 입력한제목, 입력한내용, 시간) 이겠지?
+                Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0,"내용없음" ); // 생성자 넘버+ 제목 + 내용 모두 저장 처음 저장했다면 (1, 입력한제목, 입력한내용, 시간) 이겠지?
 
 
                 posts.add(post); // ArrayList에 제목과 내용 저장~
