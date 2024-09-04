@@ -11,6 +11,9 @@ public class Post { // 얘는 PostBoard랑 세트임
     private int hit;
     private  String comment;
 
+
+
+
     public String getComment() {
         return comment;
     }
@@ -67,8 +70,5 @@ public class Post { // 얘는 PostBoard랑 세트임
     public void setHit(int hit) {
         this.hit = hit;
     }
-
-
-
 }
 

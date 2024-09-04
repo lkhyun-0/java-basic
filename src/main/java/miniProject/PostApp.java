@@ -130,9 +130,9 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
                         System.out.println("===========댓글=============");
                         System.out.println("댓글내용 : " + post.getComment());
                         System.out.printf("작성일 : %s\n", post.getCreateDate());
-                        System.out.println("===========================");
-                        System.out.println("댓글내용 : " + post.getComment());
-                        System.out.printf("작성일 : %s\n", post.getCreateDate());
+//                        System.out.println("===========================");
+//                        System.out.println("댓글내용 : " + post.getComment());
+//                        System.out.printf("작성일 : %s\n", post.getCreateDate()); > 반복되는 부분 해결하자 메서드로
 
 //                        post.getComment();
 
@@ -153,56 +153,85 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
                 }
 
 
-                } else if (commend.equals("search")) {
-                    System.out.print("검색할 키워드를 입력하세요 : ");
-                    String keyword = sc.nextLine();
+            } else if (commend.equals("search")) {
+                System.out.print("검색할 키워드를 입력하세요 : ");
+                String keyword = sc.nextLine();
 
-                    ArrayList<Post> searchedPostList = new ArrayList<>();
+                ArrayList<Post> searchedPostList = new ArrayList<>();
 
-                    for (Post post : posts) {
-                        if (post.getTitle().contains(keyword)) {
-                            searchedPostList.add(post);
-                        }
+                for (Post post : posts) {
+                    if (post.getTitle().contains(keyword)) {
+                        searchedPostList.add(post);
                     }
-                    printPostList(searchedPostList);
                 }
-            }
-        }
+                printPostList(searchedPostList);
 
-        public static Post findPostById ( int id){ // 찾기만 해주면 됨  수정은 넘겨주고 실행
 
-            // 만약 내가 찾고자 하는 게시물이 없다면?
-            for (Post post : posts) {
-                if (post.getId() == id) {
-                    return post; // 값을 찾고 return을 만나면 메서드는 그 즉시 종료됨
-                } // 찾으면 아래로 내려갈 일이 없겠지?
-            } // > 반복문을 다 뒤졌어 근데 내가 원하는 값이 안나왔어 > 그러면 비어있다 (없다)라는 값을
-            return null; // null은 없다는 의미
-        }
+            } else if (commend.equals("signup")) {
+                System.out.println("==== 회원 가입을 진행합니다 ====");
 
-        public static String getCurrentDateTime () {
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
-            String formattedDateTime = currentDateTime.format(formatter);
+                ArrayList<MemberInformation> memberimfo = new ArrayList<>(); // 여기에
+                MemberInformation info = new MemberInformation();
 
-            return formattedDateTime;
-        }
 
-        public void printPostList (ArrayList < Post > targetList)
-        {  //ArrayList<Post> targetList > 이 부분이!정하는 거임 얼마나 반복할지
-            System.out.println("=================");
-            for (Post post : targetList) { // 그래서 여기도 들어가는 거임
-                System.out.printf("번호 : %s \n", post.getId()); // post에 저장되어 있는 id데이터를get으로 가져오기
-                System.out.printf("제목 : %s\n", post.getTitle());// post에 저장되어 있는 제목 데이터를 get으로 가져오기
-                System.out.printf("내용 : %s\n", post.getBody());
-                System.out.printf("작성일 : %s\n", post.getCreateDate());
-                System.out.printf("조회수 : %d\n", post.getHit());
-                System.out.println("=================");
+                System.out.print("아이디를 입력해주세요 : ");
+                String inputId = sc.nextLine();
+                info.setMemberID(inputId);
+                System.out.print("비밀번호를 입력해주세요 : ");
+                String inputPW = sc.nextLine();
+                info.setMemberPW(inputPW);
+                System.out.print("닉네임을 입력해주세요 : ");
+                String inputNN = sc.nextLine();
+                info.setMemberNN(inputNN);
+                System.out.println("                              ");
+                System.out.println("==== 회원가입이 완료되었습니다 ====");
+
+//                System.out.println(info.getMemberID());
+//                System.out.println(info.getMemberPW());
+//                System.out.println(info.getMemberNN());  저장확인
+
 
             }
-        }
 
+
+        }
     }
+
+    public static Post findPostById(int id) { // 찾기만 해주면 됨  수정은 넘겨주고 실행
+
+        // 만약 내가 찾고자 하는 게시물이 없다면?
+        for (Post post : posts) {
+            if (post.getId() == id) {
+                return post; // 값을 찾고 return을 만나면 메서드는 그 즉시 종료됨
+            } // 찾으면 아래로 내려갈 일이 없겠지?
+        } // > 반복문을 다 뒤졌어 근데 내가 원하는 값이 안나왔어 > 그러면 비어있다 (없다)라는 값을
+        return null; // null은 없다는 의미
+    }
+
+    public static String getCurrentDateTime() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+
+        return formattedDateTime;
+    }
+
+    public void printPostList(ArrayList<Post> targetList) {  //ArrayList<Post> targetList > 이 부분이!정하는 거임 얼마나 반복할지
+        System.out.println("=================");
+        for (Post post : targetList) { // 그래서 여기도 들어가는 거임
+            System.out.printf("번호 : %s \n", post.getId()); // post에 저장되어 있는 id데이터를get으로 가져오기
+            System.out.printf("제목 : %s\n", post.getTitle());// post에 저장되어 있는 제목 데이터를 get으로 가져오기
+            System.out.printf("내용 : %s\n", post.getBody());
+            System.out.printf("작성일 : %s\n", post.getCreateDate());
+            System.out.printf("조회수 : %d\n", post.getHit());
+            System.out.println("=================");
+
+        }
+    }
+
+}
+
+
 
 
 
