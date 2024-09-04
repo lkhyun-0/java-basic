@@ -57,41 +57,9 @@ public class FunctionFinal {
             } else if (commend.equals("update")) {
 
                 System.out.print("수정할 게시물의 번호를 입력하세요 : ");
-                int targetidx = Integer.parseInt(sc.nextLine()); // 업데이트를 위해 타겟팅시도하는
+//                int targetidx = Integer.parseInt(sc.nextLine()); // 업데이트를 위해 타겟팅시도하는
                 int targetId = Integer.parseInt(sc.nextLine()); //
 
-
-                if (targetidx < 1 || targetidx > posts.size()) {
-                    System.out.println("없는 게시물 번호 입니다.");
-                    continue;
-                }
-
-                for (Post post : posts) {
-                    if (post.getId() == targetId) {
-                        System.out.print("수정할 제목 : ");
-                        String newTitle = sc.nextLine();
-                        System.out.print("수정할 내용 : ");
-                        String newDetail = sc.nextLine();
-
-                        post.setTitle(newTitle); // post 에 새 제목 저장
-                        post.setDetail(newDetail); // post에 새 내용 저장
-
-                        System.out.println("수정이 완료되었습니다");
-                        break;
-                    }
-                }
-            } else if (commend.equals("delete")) {
-                System.out.print("삭제할 게시물 번호 : ");
-                int targetId = Integer.parseInt(sc.nextLine());
-
-                for (Post post : posts) {
-                    if (post.getId() == targetId) {
-                        posts.remove(post); // 인덱스가 아닌 값을 넣어서 해당 값을 삭제 할 수도 있다.
-
-                        System.out.println("삭제가 완료되었습니다.");
-                        break;
-                    }
-                }
                 Post post = findPostById(targetId);
 
                 if (post == null) {
@@ -99,10 +67,28 @@ public class FunctionFinal {
                     continue;
 
                 }
+                System.out.print("수정할 제목 : ");
+                String newTitle = sc.nextLine();
+                System.out.print("수정할 내용 : ");
+                String newDetail = sc.nextLine();
 
+                post.setTitle(newTitle); // post 에 새 제목 저장
+                post.setDetail(newDetail); // post에 새 내용 저장
+
+                System.out.println("수정이 완료되었습니다");
+
+            } else if (commend.equals("delete")) {
+                System.out.print("삭제할 게시물 번호 : ");
+                int targetId = Integer.parseInt(sc.nextLine());
+
+                Post post = findPostById(targetId);
+
+                if (post == null) {
+                    System.out.println("없는 게시물 번호 입니다.");
+                    continue;
+                }
                 posts.remove(post);
-                System.out.println("삭제가 완료되었습니다."); // 만약에 삭제할 게시물을 못찾은 경우 ?
-
+                System.out.println("삭제가 완료되었습니다.");
             }
         }
     }
