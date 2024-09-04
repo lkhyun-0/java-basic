@@ -1,24 +1,22 @@
 package miniProject;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Post { // 얘는 PostBoard랑 세트임
     private int id;
     private String title;
     private String body;
-    String formattedNow;
-    int num;
-    String testTitle;
+    private String createDate;
+    private int hit;
 
-    public Post(int id, String title, String body, String formattedNow) {
+    public Post(int id, String title, String body, String createDate, int hit) {
         this.title = title;
         this.body = body;
         this.id = id;
-        this.formattedNow = formattedNow;
+        this.createDate = createDate ;
+        this.hit = hit;
     }
-//    public TestData (int num, String testTitle){
-//
-//
-//    }
-
 
     public String getTitle() {
         return title;
@@ -42,8 +40,26 @@ public class Post { // 얘는 PostBoard랑 세트임
     public void setId(int id) {
         this.id = id;
     }
-    public String getFormattedNow() {
-        return formattedNow;
+    public String getCreateDate() {
+        return createDate;
     }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public void increaseHit() { // 조회수가 1씩 증가하게 해주는 메서드
+        this.hit++;
+    }
+    public int getHit() {
+        return hit;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
+
+
+
 }
 

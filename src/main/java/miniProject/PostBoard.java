@@ -5,13 +5,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PostBoard {
+public class PostBoard { // 여기서 편하게 만들고 App에 적용
 
-    // 공유해야하는 데이터들은 객체변수로 만들기 ** 중요
-    // posts ArrayList는 main 메서드와 findPostById 메서드가 같이 사용해야 하므로 main 밖으로 빼주고 static 붙여줌
     static ArrayList<Post> posts = new ArrayList<>();
 
+    // 값의 초기화는 생성자에서 해주는게 좋음 다양한 로직에서 수행이 가능함
+    public PostBoard(){
+        Post p1 = new Post(1, "안녕하세요 반갑습니다.","내용없음", getCurrentDateTime(),0);
+        Post p2 = new Post(2, "자바공부중이에요.","내용없음", getCurrentDateTime(),0);
+        Post p3 = new Post(3, "정처기 따야하나요?","내용없음", getCurrentDateTime(),0);
 
+        posts.add(p1);
+        posts.add(p2);
+        posts.add(p3);
+
+    }
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -32,12 +40,8 @@ public class PostBoard {
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String body = sc.nextLine(); // 내용을 입력 받아
 
-                LocalDateTime now = LocalDateTime.now(); //현재의 날짜와 시간을 가져옴
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                String formattedNow = now.format(formatter);
 
-
-                Post post = new Post(lastestId, title, body, formattedNow); // 생성자 넘버+ 제목 + 내용 모두 저장 처음 저장했다면 (1, 입력한제목, 입력한내용, 시간) 이겠지?
+                Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0 ); // 생성자 넘버+ 제목 + 내용 모두 저장 처음 저장했다면 (1, 입력한제목, 입력한내용, 시간) 이겠지?
 
 
                 posts.add(post); // ArrayList에 제목과 내용 저장~
@@ -102,10 +106,14 @@ public class PostBoard {
                     System.out.println("존재하지 않는 게시물 번호 입니다.");
                     continue;
                 } // 있으면
-                System.out.printf("번호 : %s \n", post.getId());
+
+                post.increaseHit();
+
+                System.out.printf("번호 : %d \n", post.getId());
                 System.out.printf("제목 : %s\n", post.getTitle());
                 System.out.printf("내용 : %s\n", post.getBody());
-                System.out.printf("등록시간 : %s\n", post.getFormattedNow()); // 요렇게 출력해줌
+                System.out.printf("등록시간 : %s\n", post.getCreateDate()); // 요렇게 출력해줌
+                System.out.printf("조회수 : %d\n", post.getHit());
             }
         }
     }
@@ -122,8 +130,21 @@ public class PostBoard {
 
         return null; // null은 없다는 의미
     }
+    public static String getCurrentDateTime(){
+        // 현재 날짜와 시간 가져오기
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        // 원하는 포맷 지정하기
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        // 포맷 적용하여 출력하기
+        String formattedDateTime = currentDateTime.format(formatter);
+        return formattedDateTime;
 
-}
+    }
+
+
+    }
+
+
 
 
 
