@@ -1,6 +1,6 @@
 package miniProject;
 
-public class Post {
+public class Post { // 얘는 PostBoard랑 세트임
     private int id;
     private String title;
     private String detail;

@@ -3,17 +3,10 @@ package miniProject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FunctionFinal {
+public class PostApp { // 실행을 위한 메서드 등이 있는 곳 post run 과 세트임
 
-    // 공유해야하는 데이터들은 객체변수로 만들기 ** 중요
     static ArrayList<Post> posts = new ArrayList<>();
-
-    // main 메서드와 findPostById 메서드가 같이 사용해야 하므로 main 밖으로 빼주고 static 붙여줌
-    //static 은 공유를 목적으로 한다.
-    // 자바에서 기본은 non-static
-
-    public static void main(String[] args) {
-
+    public void run(){
         Scanner sc = new Scanner(System.in);
         int lastestId = 1; // 가장 최신의 id값. id값의 고유성을 유지하기 위해 1씩 증가시킬 계획임
 
@@ -105,12 +98,4 @@ public class FunctionFinal {
         return null; // null은 없다는 의미
     }
 }
-
-
-
-
-
-
-
-
 
