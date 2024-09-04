@@ -5,18 +5,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun 과 세트임
 
-    public PostApp(){
-        Post p1 = new Post(1, "안녕하세요 반갑습니다.","내용없음", getCurrentDateTime(),0);
-        Post p2 = new Post(2, "자바공부중이에요.","내용없음", getCurrentDateTime(),0);
-        Post p3 = new Post(3, "정처기 따야하나요?","내용없음", getCurrentDateTime(),0);
+    public PostApp() {
+        Post p1 = new Post(1, "안녕하세요 반갑습니다. java", "내용없음", getCurrentDateTime(), 0);
+        Post p2 = new Post(2, "java공부중이에요.", "내용없음", getCurrentDateTime(), 0);
+        Post p3 = new Post(3, "정처기 따야하나요?", "내용없음", getCurrentDateTime(), 0);
         posts.add(p1);
         posts.add(p2);
         posts.add(p3);
     }
 
     static ArrayList<Post> posts = new ArrayList<>();
+
 
     public void run() {
         Scanner sc = new Scanner(System.in);
@@ -49,13 +51,11 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
 
 
             } else if (commend.equals("list")) {  // 조회는 그냥 꺼내와서 출력 해주기 객체를 잘 짜고 연결해주기 !!
-                System.out.println("=================");
 
-                for (Post post : posts) {
-                    System.out.printf("번호 : %s \n", post.getId()); // post에 저장되어 있는 id데이터를get으로 가져오기
-                    System.out.printf("제목 : %s\n", post.getTitle());// post에 저장되어 있는 제목 데이터를 get으로 가져오기
-                    System.out.println("=================");
-                }
+                printPostList(posts);
+
+
+
 
             } else if (commend.equals("update")) {
                 System.out.print("수정할 게시물의 번호를 입력하세요 : ");
@@ -110,6 +110,19 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
                 System.out.printf("등록시간 : %s\n", post.getCreateDate());
 
                 System.out.printf("조회수 : %d\n", post.getHit());
+
+            } else if (commend.equals("search")) {
+                System.out.print("검색할 키워드를 입력하세요 : ");
+                String keyword = sc.nextLine();
+
+                ArrayList<Post> searchedPostList = new ArrayList<>();
+
+                for (Post post : posts){
+                    if(post.getTitle().contains(keyword)){
+                        searchedPostList.add(post);
+                    }
+                }
+                printPostList(searchedPostList);
             }
         }
     }
@@ -132,5 +145,17 @@ public class PostApp { // 실행을 위한 메서드 등이 있는 곳 postrun �
 
         return formattedDateTime;
     }
+
+    public void printPostList(ArrayList<Post> targetList) {  //ArrayList<Post> targetList > 이 부분이!정하는 거임 얼마나 반복할지
+        System.out.println("=================");
+        for (Post post : targetList) { // 그래서 여기도 들어가는 거임
+            System.out.printf("번호 : %s \n", post.getId()); // post에 저장되어 있는 id데이터를get으로 가져오기
+            System.out.printf("제목 : %s\n", post.getTitle());// post에 저장되어 있는 제목 데이터를 get으로 가져오기
+            System.out.println("=================");
+        }
+
+    }
+
 }
+
 
