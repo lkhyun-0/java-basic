@@ -5,12 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.sun.jndi.toolkit.dir.DirSearch.search;
-import static java.nio.file.Files.delete;
-import static jdk.jfr.internal.consumer.EventLog.update;
-import static sun.security.jgss.GSSUtil.login;
-
-
 public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 중요
     // 모든 클래스는 생성자를 가질 수 있어용~ 같은이름으로
     ArrayList<MemberInformation> memberinfo = new ArrayList<MemberInformation>(); // 여기에

@@ -1,6 +1,6 @@
 package miniProject;
 
- // 창고 관리(Model) 데이터 창고임
+// 창고 관리(Model) 데이터 창고임
 
 import java.util.ArrayList;
 
@@ -22,7 +22,6 @@ public class PostRepository {
     public void delete(Post post) {
         posts.remove(post);
     }
-
 
 
 }
