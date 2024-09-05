@@ -25,6 +25,7 @@ public class Polmorphism {
         // 출력 : 홍길동이/가 연속 베기 스킬을 사용합니다. 2배(30)의 피해를 입힙니다.
     }
 }
+
 class Warrior {
     // 인스턴스 변수
     String name;
@@ -36,11 +37,13 @@ class Warrior {
     void introduce() {
         System.out.println("안녕하세요. 저는 " + age + "살 " + name + " 입니다.");
     }
-        void attack() {
+
+    void attack() {
         System.out.printf(" " + name + "이/가 ");
         weapon.use();
     }
-    void useSkill(){
+
+    void useSkill() {
         System.out.printf(name + "이/가 ");
         weapon.skill();
 
@@ -48,9 +51,10 @@ class Warrior {
 }
 
 class Weapon {
-        void use() {
+    void use() {
         System.out.printf(" 무기로 공격합니다. ");
     }
+
     void skill() {
         System.out.println("스킬 사용");
     }
@@ -61,6 +65,7 @@ class Sword extends Weapon {
     void use() {
         System.out.printf("칼로 공격합니다.");
     }
+
     void skill() {
         System.out.println("연속 베기 스킬을 사용합니다. 2배(30)의 피해를 입힙니다.");
     }
@@ -76,7 +81,6 @@ class Bow extends Weapon {
     }
 
 }
-
 
 // 이전문제=========================================
 
