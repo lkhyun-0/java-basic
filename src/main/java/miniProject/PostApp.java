@@ -5,30 +5,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 중요
-    // 모든 클래스는 생성자를 가질 수 있어용~ 같은이름으로
+public class PostApp {
+
+    Scanner sc = new Scanner(System.in);
+    int lastestId = 4; // 가장 최신의 id값. id값의 고유성을 유지하기 위해 1씩 증가시킬 계획임
+    PostRepository postRepository = new PostRepository();
+
     ArrayList<MemberInformation> memberinfo = new ArrayList<MemberInformation>(); // 여기에
     MemberInformation info = new MemberInformation();
     ArrayList<LogInfo> logInfos = new ArrayList<>(); // 여기에
     LogInfo loginfo = new LogInfo();
 
-
-    Scanner sc = new Scanner(System.in);
-    int lastestId = 1; // 가장 최신의 id값. id값의 고유성을 유지하기 위해 1씩 증가시킬 계획임
-    PostRepository postRepository = new PostRepository();
-
     public PostApp() { // 데이터 넣어 놓고 시작하고 싶을 때 생성자로 ~ 초기화? 한다고 함
         Post p1 = new Post(1, "안녕하세요 반갑습니다. java", "내용없음", getCurrentDateTime(), 0, "내용없음");
         Post p2 = new Post(2, "java공부중이에요.", "내용없음", getCurrentDateTime(), 0, "내용없음");
         Post p3 = new Post(3, "정처기 따야하나요?", "내용없음", getCurrentDateTime(), 0, "내용없음");
-
         postRepository.save(p1);
         postRepository.save(p2);
         postRepository.save(p3);
-
-
     }
-
 
     public void run() { // 실행 메소드
 
@@ -38,7 +33,7 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
             } else {
                 System.out.println("명령어를 입력해주세요[" + loginfo.getMemberID() + "(" + info.getMemberNN() + ")]");
             }
-                String commend = sc.nextLine();
+            String commend = sc.nextLine();
             if (commend.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
@@ -57,15 +52,15 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
                 search();
             } else if (commend.equals("signup")) {
                 signup();
-            }else if (commend.equals("login")){
+            } else if (commend.equals("login")) {
                 login();
             }
-
         }
     }
 
+
     private void list() {
-        ArrayList<Post>posts = postRepository.getPosts();
+        ArrayList<Post> posts = postRepository.getPosts();
         printPostList(posts);
     }
 
@@ -76,10 +71,10 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
         System.out.print("비밀번호 : ");
         String inputPW = sc.nextLine();
         loginfo.setMemberPW(inputPW);
-        if (info.getMemberID().equals(inputId) && info.getMemberPW().equals(inputPW)){
-            System.out.println(info.getMemberNN()+"님 환영합니다!");
+        if (info.getMemberID().equals(inputId) && info.getMemberPW().equals(inputPW)) {
+            System.out.println(info.getMemberNN() + "님 환영합니다!");
             logInfos.add(loginfo);
-        }else {
+        } else {
             System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
         }
     }
@@ -104,26 +99,22 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
         System.out.print("검색할 키워드를 입력하세요 : ");
         String keyword = sc.nextLine();
 
-        ArrayList<Post> posts = postRepository.getPosts();
-
-        ArrayList<Post> searchedPostList = new ArrayList<>();
-
-        for (Post post : posts) {
-            if (post.getTitle().contains(keyword)) {
-                searchedPostList.add(post);
-            }
-        }
+        ArrayList<Post> searchedPostList = postRepository.getPostsByKeyword(keyword);
         printPostList(searchedPostList);
     }
+
     private void detail() {
         System.out.println("상세보기 할 게시물 번호를 입력해주세요 : ");
         int targetId = Integer.parseInt(sc.nextLine());
-        Post post = findPostById(targetId); // 또 찾아 게시물 중에서
+
+        Post post = postRepository.findPostById(targetId);
+
         if (post == null) { // 다 찾아 봤는데 없어?
             System.out.println("존재하지 않는 게시물 번호 입니다."); // 없다고 알려주고
             return; // 다음회차로 넘겨줘
         }
         post.increaseHit(); // 조회수 1올려줘
+
 
         System.out.printf("번호 : %d\n", post.getId());
         System.out.printf("제목 : %s\n", post.getTitle());
@@ -158,7 +149,6 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
 
 //                        post.getComment();
 
-
             } else if (detailFunc == 2) {
                 System.out.println("[추천 기능]");
 
@@ -178,12 +168,15 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
     private void delete() {
         System.out.print("삭제할 게시물 번호 : ");
         int targetId = Integer.parseInt(sc.nextLine()); // 삭제하고 싶은 번호 입력받기
-        Post post = findPostById(targetId);// 입력값이랑 게시물번호랑 같은지 싹 찾아 > 메서드임 아래에서 한번 더 보기
+
+        Post post = postRepository.findPostById(targetId);// 입력값이랑 게시물번호랑 같은지 싹 찾아 > 메서드임 아래에서 한번 더 보기
+
         if (post == null) { // 만약 다 찾아 봤는데 없어?
             System.out.println("없는 게시물 번호 입니다."); // 없다고 알려주고
             return; // 다음회차로 넘겨
         }
         postRepository.delete(post);
+
         System.out.println("삭제가 완료되었습니다."); // 출력
     }
 
@@ -191,7 +184,7 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
         System.out.print("수정할 게시물의 번호를 입력하세요 : ");
         int targetId = Integer.parseInt(sc.nextLine()); // 수정하고 싶은 번호 골라서 입력
 
-        Post post = findPostById(targetId); // 게시물 중에서 입력 받은 값이랑 같은 것이 있는지 찾아!
+        Post post = postRepository.findPostById(targetId);
 
         if (post == null) { // 만약 다 찾아 봤는데 없어?
             System.out.println("없는 게시물 입니다."); // 없다고 알려주고
@@ -205,60 +198,38 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
 
         post.setTitle(newTitle); // post 에 새 제목 저장
         post.setBody(newDetail); // post 에 새 내용 저장
-
         System.out.println("수정이 완료되었습니다");
-
-
     }
 
     private void add() {
         System.out.print("게시물 제목을 입력해주세요 : ");
-        String title = sc.nextLine(); // 제목을 입력 받아
-
+        String title = sc.nextLine();
         System.out.print("게시물 내용을 입력해주세요 : ");
-        String body = sc.nextLine(); // 내용을 입력 받아
-
+        String body = sc.nextLine();
         Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0, "내용없음");
-        // post라는 클래스에 1번 입력한 제목, 입력한 내용, 현재 시각, 0,"내용없음" 을 저장함
-
-
         postRepository.save(post);
-         // ArrayList에 제목과 내용 저장~
-        // posts는 ArrayList임
-
         System.out.println("게시물이 등록되었습니다.");
-        lastestId++; //1씩 증가시키기 (1부터 증가시킨다는 것은 고유값을 유지하는데 편리하다)
-        // 추가 기능 완성
+        lastestId++;
     }
 
-    public  Post findPostById(int id) { // 찾기만 해주면 됨  수정은 넘겨주고 실행
-        // 만약 내가 찾고자 하는 게시물이 없다면?
+    public String getCurrentDateTime() {
 
-        ArrayList<Post> posts = postRepository.getPosts();
-        for (Post post : posts) {
-            if (post.getId() == id) {
-                return post; // 값을 찾고 return을 만나면 메서드는 그 즉시 종료됨
-            } // 찾으면 아래로 내려갈 일이 없겠지?
-        } // > 반복문을 다 뒤졌어 근데 내가 원하는 값이 안나왔어 > 그러면 비어있다 (없다)라는 값을
-        return null; // null은 없다는 의미
-    }
-
-    public static String getCurrentDateTime() {
+        // 현재 날짜와 시간 가져오기
         LocalDateTime currentDateTime = LocalDateTime.now();
+        // 원하는 포맷 지정하기
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        // 포맷 적용하여 출력하기
         String formattedDateTime = currentDateTime.format(formatter);
         return formattedDateTime;
     }
 
-    public void printPostList(ArrayList<Post> targetList) {  //ArrayList<Post> targetList > 이 부분이!정하는 거임 얼마나 반복할지
-        System.out.println("=================");
-        for (Post post : targetList) { // 그래서 여기도 들어가는 거임
-            System.out.printf("번호 : %s \n", post.getId()); // post에 저장되어 있는 id데이터를get으로 가져오기
-            System.out.printf("제목 : %s\n", post.getTitle());// post에 저장되어 있는 제목 데이터를 get으로 가져오기
-            System.out.printf("내용 : %s\n", post.getBody());
-            System.out.printf("작성일 : %s\n", post.getCreateDate());
-            System.out.printf("조회수 : %d\n", post.getHit());
-            System.out.println("=================");
+    public void printPostList(ArrayList<Post> targetList) {
+        System.out.println("==================");
+        for (Post post : targetList) {
+            System.out.printf("번호 : %d\n", post.getId());
+            System.out.printf("제목 : %s\n", post.getTitle());
+            System.out.println("작성자 : hong");
+            System.out.println("==================");
         }
     }
 }
