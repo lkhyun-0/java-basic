@@ -13,23 +13,28 @@ import static sun.security.jgss.GSSUtil.login;
 
 public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 중요
     // 모든 클래스는 생성자를 가질 수 있어용~ 같은이름으로
-    public PostApp() { // 데이터 넣어 놓고 시작하고 싶을 때 생성자로 ~ 초기화? 한다고 함
-        Post p1 = new Post(1, "안녕하세요 반갑습니다. java", "내용없음", getCurrentDateTime(), 0, "내용없음");
-        Post p2 = new Post(2, "java공부중이에요.", "내용없음", getCurrentDateTime(), 0, "내용없음");
-        Post p3 = new Post(3, "정처기 따야하나요?", "내용없음", getCurrentDateTime(), 0, "내용없음");
-        posts.add(p1);
-        posts.add(p2);
-        posts.add(p3);
-    }
-
-    Scanner sc = new Scanner(System.in);
-    int lastestId = 1; // 가장 최신의 id값. id값의 고유성을 유지하기 위해 1씩 증가시킬 계획임
-
-    static ArrayList<Post> posts = new ArrayList<>();
     ArrayList<MemberInformation> memberinfo = new ArrayList<MemberInformation>(); // 여기에
     MemberInformation info = new MemberInformation();
     ArrayList<LogInfo> logInfos = new ArrayList<>(); // 여기에
     LogInfo loginfo = new LogInfo();
+
+
+    Scanner sc = new Scanner(System.in);
+    int lastestId = 1; // 가장 최신의 id값. id값의 고유성을 유지하기 위해 1씩 증가시킬 계획임
+    PostRepository postRepository = new PostRepository();
+
+    public PostApp() { // 데이터 넣어 놓고 시작하고 싶을 때 생성자로 ~ 초기화? 한다고 함
+        Post p1 = new Post(1, "안녕하세요 반갑습니다. java", "내용없음", getCurrentDateTime(), 0, "내용없음");
+        Post p2 = new Post(2, "java공부중이에요.", "내용없음", getCurrentDateTime(), 0, "내용없음");
+        Post p3 = new Post(3, "정처기 따야하나요?", "내용없음", getCurrentDateTime(), 0, "내용없음");
+
+        postRepository.save(p1);
+        postRepository.save(p2);
+        postRepository.save(p3);
+
+
+    }
+
 
     public void run() { // 실행 메소드
 
@@ -47,7 +52,7 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
             } else if (commend.equals("add")) {
                 add();
             } else if (commend.equals("list")) {
-                printPostList(posts);
+                list();
             } else if (commend.equals("update")) {
                 update();
             } else if (commend.equals("delete")) {
@@ -63,6 +68,11 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
             }
 
         }
+    }
+
+    private void list() {
+        ArrayList<Post>posts = postRepository.getPosts();
+        printPostList(posts);
     }
 
     private void login() {
@@ -99,7 +109,11 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
     private void search() {
         System.out.print("검색할 키워드를 입력하세요 : ");
         String keyword = sc.nextLine();
+
+        ArrayList<Post> posts = postRepository.getPosts();
+
         ArrayList<Post> searchedPostList = new ArrayList<>();
+
         for (Post post : posts) {
             if (post.getTitle().contains(keyword)) {
                 searchedPostList.add(post);
@@ -116,6 +130,7 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
             return; // 다음회차로 넘겨줘
         }
         post.increaseHit(); // 조회수 1올려줘
+
         System.out.printf("번호 : %d\n", post.getId());
         System.out.printf("제목 : %s\n", post.getTitle());
         System.out.printf("내용 : %s\n", post.getBody());
@@ -174,7 +189,7 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
             System.out.println("없는 게시물 번호 입니다."); // 없다고 알려주고
             return; // 다음회차로 넘겨
         }
-        posts.remove(post); // ArrayList 는 삭제 기능을 지원하기 때문에 ~ 이렇게 적어주고
+        postRepository.delete(post);
         System.out.println("삭제가 완료되었습니다."); // 출력
     }
 
@@ -212,7 +227,9 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
         Post post = new Post(lastestId, title, body, getCurrentDateTime(), 0, "내용없음");
         // post라는 클래스에 1번 입력한 제목, 입력한 내용, 현재 시각, 0,"내용없음" 을 저장함
 
-        posts.add(post); // ArrayList에 제목과 내용 저장~
+
+        postRepository.save(post);
+         // ArrayList에 제목과 내용 저장~
         // posts는 ArrayList임
 
         System.out.println("게시물이 등록되었습니다.");
@@ -220,8 +237,10 @@ public class PostApp { // 메인과 연동되는 클래스 여기서 작업함 �
         // 추가 기능 완성
     }
 
-    public static Post findPostById(int id) { // 찾기만 해주면 됨  수정은 넘겨주고 실행
+    public  Post findPostById(int id) { // 찾기만 해주면 됨  수정은 넘겨주고 실행
         // 만약 내가 찾고자 하는 게시물이 없다면?
+
+        ArrayList<Post> posts = postRepository.getPosts();
         for (Post post : posts) {
             if (post.getId() == id) {
                 return post; // 값을 찾고 return을 만나면 메서드는 그 즉시 종료됨
