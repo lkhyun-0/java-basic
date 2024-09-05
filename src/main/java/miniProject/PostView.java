@@ -15,6 +15,7 @@ public class PostView {
             System.out.println("==================");
         }
     }
+
     public void printPostDetail(Post post) {
         System.out.printf("번호 : %d\n", post.getId());
         System.out.printf("제목 : %s\n", post.getTitle());
@@ -22,4 +23,6 @@ public class PostView {
         System.out.printf("등록날짜 : %s\n", post.getCreateDate());
         System.out.printf("조회수 : %d\n", post.getHit());
     }
+
+    // 댓글보여주는 ~
 }

@@ -32,55 +32,73 @@ public class PostController {
     public void detail() {
         System.out.println("상세보기 할 게시물 번호를 입력해주세요 : ");
         int targetId = Integer.parseInt(sc.nextLine());
-
         Post post = postRepository.findPostById(targetId); // 창고에서 꺼내서
-
         // 요리를 한다음
-
         if (post == null) { // 다 찾아 봤는데 없어?
             System.out.println("존재하지 않는 게시물 번호 입니다."); // 없다고 알려주고
             return; // 다음회차로 넘겨줘
         }
         post.increaseHit(); // 조회수 1올려줘
-// 서빙한테 넘겨줌
+        // 서빙한테 넘겨줌
         postView.printPostDetail(post);
 
-        System.out.println("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) :");
-        int detailFunc = Integer.parseInt(sc.nextLine());
         while (true) {
+            System.out.println("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) :");
+            int detailFunc = Integer.parseInt(sc.nextLine());
             if (detailFunc == 1) {
                 System.out.print("[댓글 기능을 선택하셨습니다.]");
                 String comment = sc.nextLine();
                 System.out.println("댓글내용 : " + comment);
                 System.out.println("댓글이 성공적으로 등록되었습니다.");
-
                 post.setComment(comment); // post에 저장
-
                 System.out.printf("==== %d번 게시물 ====\n", post.getId());
-                System.out.printf("번호 : %d\n", post.getId());
-                System.out.printf("제목 : %s\n", post.getTitle());
-                System.out.printf("내용 : %s\n", post.getBody());
-                System.out.printf("등록날짜 : %s\n", post.getCreateDate());
-                System.out.printf("조회수 : %d\n", post.getHit());
+                postView.printPostDetail(post);
                 System.out.println("===========================");
                 System.out.println("===========댓글=============");
                 System.out.println("댓글내용 : " + post.getComment());
                 System.out.printf("작성일 : %s\n", post.getCreateDate());
-//                        System.out.println("===========================");
-//                        System.out.println("댓글내용 : " + post.getComment());
-//                        System.out.printf("작성일 : %s\n", post.getCreateDate()); > 반복되는 부분 해결하자 메서드로
-                // 위에 출력 부분도 반복됨 메서드 사용해서 해결하기
+                System.out.printf("작성자 : %s\n", post.getCreateDate());
 
-//                        post.getComment();
+//                System.out.println("===========================");
+//                System.out.println("===========댓글=============");
+//                System.out.println("댓글내용 : " + post.getComment());
+//                System.out.printf("작성일 : %s\n", post.getCreateDate()); >반복되는 부분 해결하자 메서드로
+//                위에 출력 부분도 반복됨 메서드 사용해서 해결하기
+
+//                post.getComment();
 
             } else if (detailFunc == 2) {
                 System.out.println("[추천 기능]");
 
             } else if (detailFunc == 3) {
-                System.out.println("[수정 기능]");
+                update();
+
+
+//                System.out.println("[수정 기능]");
+//                System.out.print("수정할 게시물 선택 : ");
+//
+//                int targetid = Integer.parseInt(sc.nextLine());
+//
+//                Post detailupdate = postRepository.findPostById(targetid);
+//
+//                if (detailupdate == null) { // 만약 다 찾아 봤는데 없어?
+//                    System.out.println("없는 게시물 번호 입니다."); // 없다고 알려주고
+//                    return; // 다음회차로 넘겨
+//                }
+//                System.out.println("제목 : ");
+//                String newTitle = sc.nextLine();
+//                System.out.println("내용 : ");
+//                String newBody = sc.nextLine();
+//
+//                post.setTitle(newTitle); // post 에 새 제목 저장
+//                post.setBody(newBody); // post 에 새 내용 저장
+//                System.out.println("수정이 완료되었습니다");
+
 
             } else if (detailFunc == 4) {
                 System.out.println("[삭제 기능]");
+                delete();
+                System.out.println("정말 게시물을 삭제하시겠습니까? (y/n) : ");
 
             } else if (detailFunc == 5) {
                 System.out.println("상세보기 화면을 빠져나갑니다.");
