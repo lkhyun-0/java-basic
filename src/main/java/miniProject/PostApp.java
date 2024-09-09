@@ -2,7 +2,7 @@ package miniProject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class PostApp {
@@ -13,11 +13,8 @@ public class PostApp {
     public void run() { // 실행 메소드
 
         while (true) {
-            if (postController.loginfo.getMemberID() == null) {
-                System.out.print("명령어 : ");
-            } else {
-                System.out.println("명령어를 입력해주세요[" + postController.loginfo.getMemberID() + "(" + postController.info.getMemberNN() + ")]");
-            }
+            System.out.print("명령어 : ");
+            // +  로그인 후에 닉넴 추가되어야 함
             String commend = sc.nextLine();
             if (commend.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
@@ -38,7 +35,9 @@ public class PostApp {
                 postController.signup();
             } else if (commend.equals("login")) {
                 postController.login();
+//            }
             }
         }
     }
 }
+

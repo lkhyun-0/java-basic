@@ -29,9 +29,9 @@ public class PostRepository {
         ArrayList<Post> searchedPostList = new ArrayList<>();
 
         for (Post post : posts) {
-            if (post.getTitle().contains(keyword)) {
-                searchedPostList.add(post);
-            }
+             if (post.getTitle().contains(keyword)){
+                 searchedPostList.add(post);
+             }
         }
         return searchedPostList;
     }
@@ -46,4 +46,6 @@ public class PostRepository {
         return null; // null은 없다는 의미
 
     }
+
+
 }
