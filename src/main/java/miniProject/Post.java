@@ -21,6 +21,7 @@ public class Post { // 기본 게시물 정보용
     }
 
 
+
     public  Post(int id, String title, String body,String createDate ,String comment , int hit, String creater) {
         this.id = id;
         this.creater = creater;
